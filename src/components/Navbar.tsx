@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Top Headlines", href: "/#headlines" },
@@ -19,13 +20,13 @@ const Hamburger = ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }
     aria-expanded={isOpen}
   >
     <span
-      className={`w-7 h-[3px] bg-black transition-all duration-300 ease-out origin-center ${isOpen ? "rotate-45 translate-y-[8px]" : ""}`}
+      className={`w-7 h-0.75 bg-black transition-all duration-300 ease-out origin-center ${isOpen ? "rotate-45 translate-y-[8px]" : ""}`}
     />
     <span
-      className={`w-7 h-[3px] bg-black transition-all duration-300 ease-out ${isOpen ? "opacity-0 translate-x-2" : ""}`}
+      className={`w-7 h-0.75 bg-black transition-all duration-300 ease-out ${isOpen ? "opacity-0 translate-x-2" : ""}`}
     />
     <span
-      className={`w-7 h-[3px] bg-black transition-all duration-300 ease-out origin-center ${isOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}
+      className={`w-7 h-0.75 bg-black transition-all duration-300 ease-out origin-center ${isOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}
     />
   </button>
 );
@@ -33,14 +34,14 @@ const Hamburger = ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }
 const Logo = ({ compact = false }: { compact?: boolean }) => (
   <Link href="/" className="flex items-center gap-3 group">
     <div
-      className={`${compact ? "w-9 h-9" : "w-10 h-10"} bg-black flex items-center justify-center border-2 border-black`}
+      className={`${compact ? "w-9 h-9" : "w-10 h-10"} bg-black flex items-center justify-center border-2 border-black rounded-full`}
       style={{ boxShadow: "3px 3px 0 var(--color-primary)" }}
     >
       <span
         className="text-primary font-bold text-sm tracking-widest"
         style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
       >
-        HS
+        <Image src={"/icon.svg"} alt="logo" width={50} height={50} />
       </span>
     </div>
     <span

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { categories } from "@/data/articles";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,14 +10,14 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-5">
             <div className="flex items-center gap-3">
               <div
-                className="w-12 h-12 bg-primary border-2 border-primary flex items-center justify-center"
+                className="w-12 h-12 bg-primary border-2 border-primary flex items-center justify-center rounded-full"
                 style={{ boxShadow: "3px 3px 0 #fff" }}
               >
                 <span
                   className="text-white font-bold text-base tracking-widest"
                   style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
                 >
-                  HS
+                  <Image src={"/icon.svg"} alt="logo" width={50} height={50} />
                 </span>
               </div>
               <div>
