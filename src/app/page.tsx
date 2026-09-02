@@ -1,69 +1,98 @@
-import Image from "next/image";
+import Hero from "@/components/Hero";
+import SectionHeader from "@/components/SectionHeader";
+import ArticleCard from "@/components/ArticleCard";
+import Newsletter from "@/components/Newsletter";
+import {
+  getHeadlines,
+  getLatest,
+  categories,
+  categoryCount,
+} from "@/data/articles";
+import Link from "next/link";
 
 export default function Home() {
+  const headlines = getHeadlines();
+  const latest = getLatest().slice(0, 5);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex-1 bg-white">
+      <Hero />
+
+      <section id="headlines" className="w-full px-6 sm:px-8 lg:px-16 py-20 lg:py-28 bg-tint">
+        <div className="max-w-[1280px] mx-auto">
+          <SectionHeader
+            kicker="// Top Headlines"
+            title="Stories moving the stack"
+            description="A masonry of the week’s most important pieces — not a wall of equal tiles."
+          />
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-8">
+            {headlines.map((article) => (
+              <ArticleCard key={article.slug} article={article} />
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+      </section>
+
+      <section id="latest" className="w-full px-6 sm:px-8 lg:px-16 py-20 lg:py-28 bg-white">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-4">
+            <SectionHeader
+              kicker="// Latest News"
+              title="Just in"
+              description="Newest briefings, in order. Same desk, less noise."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <Link
+              href="/latest"
+              className="shrink-0 inline-flex items-center justify-center border-[3px] border-black bg-white text-black font-bold uppercase tracking-wider text-[14px] px-6 py-3 shadow-[4px_4px_0px_#0A0E11] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#0A0E11] transition-all lg:mb-16"
+            >
+              View all
+            </Link>
+          </div>
+          <div className="flex flex-col gap-8">
+            {latest.map((article) => (
+              <ArticleCard key={article.slug} article={article} variant="row" />
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section id="categories" className="w-full px-6 sm:px-8 lg:px-16 py-20 lg:py-28 bg-tint">
+        <div className="max-w-[1280px] mx-auto">
+          <SectionHeader
+            kicker="// Categories"
+            title="Read by beat"
+            description="Five desks. Pick a lane or stay on the front page."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/category/${cat.slug}`}
+                className="group flex flex-col gap-4 bg-white border-2 border-black p-8 hover:-translate-y-1 transition-transform duration-200 min-h-[220px]"
+                style={{ boxShadow: "4px 4px 0px #0A0E11" }}
+              >
+                <span className="text-[12px] font-bold uppercase tracking-widest text-primary">
+                  {categoryCount(cat.slug)} stories
+                </span>
+                <h3
+                  className="text-3xl font-bold uppercase text-[#171717] group-hover:text-primary transition-colors"
+                  style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+                >
+                  {cat.name}
+                </h3>
+                <p className="text-[#525252] text-[15px] leading-relaxed flex-1">
+                  {cat.description}
+                </p>
+                <span className="text-[13px] font-bold uppercase tracking-wide text-[#171717] group-hover:text-primary">
+                  Browse →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Newsletter />
+    </main>
   );
 }
