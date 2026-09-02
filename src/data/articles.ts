@@ -24,6 +24,11 @@ export const articles: Article[] = [
     headline: true,
     readTime: 6,
     imageHeight: 280,
+    source: {
+      name: "The Verge",
+      domain: "theverge.com",
+      url: "https://theverge.com",
+    },
   },
   {
     slug: "seed-rounds-get-smaller-again",
@@ -46,6 +51,11 @@ export const articles: Article[] = [
     headline: true,
     readTime: 5,
     imageHeight: 220,
+    source: {
+      name: "TechCrunch",
+      domain: "techcrunch.com",
+      url: "https://techcrunch.com",
+    },
   },
   {
     slug: "foldables-leave-the-novelty-aisle",
@@ -68,6 +78,11 @@ export const articles: Article[] = [
     headline: true,
     readTime: 4,
     imageHeight: 300,
+    source: {
+      name: "Wired",
+      domain: "wired.com",
+      url: "https://wired.com",
+    },
   },
   {
     slug: "typescript-takes-the-backend-too",
@@ -90,6 +105,11 @@ export const articles: Article[] = [
     headline: true,
     readTime: 5,
     imageHeight: 200,
+    source: {
+      name: "Ars Technica",
+      domain: "arstechnica.com",
+      url: "https://arstechnica.com",
+    },
   },
   {
     slug: "eu-ai-act-hits-product-roadmaps",
@@ -112,6 +132,11 @@ export const articles: Article[] = [
     headline: true,
     readTime: 6,
     imageHeight: 260,
+    source: {
+      name: "Reuters",
+      domain: "reuters.com",
+      url: "https://reuters.com",
+    },
   },
   {
     slug: "agents-that-actually-finish-jobs",
@@ -134,6 +159,11 @@ export const articles: Article[] = [
     headline: true,
     readTime: 5,
     imageHeight: 240,
+    source: {
+      name: "VentureBeat",
+      domain: "venturebeat.com",
+      url: "https://venturebeat.com",
+    },
   },
   {
     slug: "climate-tech-finds-a-buyer",
@@ -155,6 +185,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 4,
     imageHeight: 210,
+    source: {
+      name: "Bloomberg",
+      domain: "bloomberg.com",
+      url: "https://bloomberg.com",
+    },
   },
   {
     slug: "earbuds-become-a-computer",
@@ -176,6 +211,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 4,
     imageHeight: 190,
+    source: {
+      name: "Engadget",
+      domain: "engadget.com",
+      url: "https://engadget.com",
+    },
   },
   {
     slug: "rust-in-the-browser-toolchain",
@@ -197,6 +237,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 5,
     imageHeight: 230,
+    source: {
+      name: "MIT Tech Review",
+      domain: "technologyreview.com",
+      url: "https://technologyreview.com",
+    },
   },
   {
     slug: "app-store-fees-under-new-pressure",
@@ -218,6 +263,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 5,
     imageHeight: 250,
+    source: {
+      name: "Financial Times",
+      domain: "ft.com",
+      url: "https://ft.com",
+    },
   },
   {
     slug: "on-device-models-hit-laptops",
@@ -239,6 +289,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 4,
     imageHeight: 200,
+    source: {
+      name: "The Information",
+      domain: "theinformation.com",
+      url: "https://theinformation.com",
+    },
   },
   {
     slug: "developer-tools-go-vertical",
@@ -260,6 +315,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 4,
     imageHeight: 220,
+    source: {
+      name: "TechCrunch",
+      domain: "techcrunch.com",
+      url: "https://techcrunch.com",
+    },
   },
   {
     slug: "e-ink-tablets-find-a-job",
@@ -281,6 +341,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 3,
     imageHeight: 180,
+    source: {
+      name: "The Verge",
+      domain: "theverge.com",
+      url: "https://theverge.com",
+    },
   },
   {
     slug: "postgres-keeps-winning",
@@ -302,6 +367,11 @@ export const articles: Article[] = [
     headline: false,
     readTime: 5,
     imageHeight: 270,
+    source: {
+      name: "Wired",
+      domain: "wired.com",
+      url: "https://wired.com",
+    },
   },
 ];
 
@@ -334,6 +404,25 @@ export function getRelated(slug: string, category: string, limit = 3) {
 
 export function categoryCount(slug: string) {
   return articles.filter((a) => a.category === slug).length;
+}
+
+export function getSources() {
+  const map = new Map<string, { name: string; domain: string; count: number }>();
+  articles.forEach((a) => {
+    if (a.source) {
+      const existing = map.get(a.source.domain);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        map.set(a.source.domain, {
+          name: a.source.name,
+          domain: a.source.domain,
+          count: 1,
+        });
+      }
+    }
+  });
+  return Array.from(map.values()).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 }
 
 export function formatDate(iso: string) {

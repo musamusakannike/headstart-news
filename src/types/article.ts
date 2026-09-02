@@ -6,6 +6,12 @@ export type Category = {
   description: string;
 };
 
+export type ArticleSource = {
+  name: string;
+  domain: string;
+  url?: string;
+};
+
 export type Article = {
   slug: string;
   title: string;
@@ -20,4 +26,6 @@ export type Article = {
   headline: boolean;
   readTime: number;
   imageHeight?: number;
+  source?: ArticleSource;
 };
+

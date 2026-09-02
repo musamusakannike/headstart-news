@@ -42,9 +42,24 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-transparent pointer-events-none" />
 
             <div className="relative z-10 flex flex-col gap-3.5">
-              <span className="border border-white/20 bg-primary text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 w-fit">
-                {featuredCategory?.name}
-              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="border border-white/20 bg-primary text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 w-fit">
+                  {featuredCategory?.name}
+                </span>
+                {featured.source && (
+                  <span className="inline-flex items-center gap-1.5 border border-white/20 bg-black/60 backdrop-blur-sm text-white font-semibold text-[11px] px-2 py-0.5">
+                    <Image
+                      src={`/api/favicon?domain=${encodeURIComponent(featured.source.domain)}`}
+                      alt={`${featured.source.name} logo`}
+                      width={14}
+                      height={14}
+                      unoptimized
+                      className="w-3.5 h-3.5 object-contain rounded-xs shrink-0"
+                    />
+                    <span>{featured.source.name}</span>
+                  </span>
+                )}
+              </div>
               <h2
                 className="text-2xl xl:text-[34px] font-bold uppercase leading-[1.08] tracking-tight text-white group-hover:text-primary transition-colors line-clamp-3"
                 style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
@@ -81,9 +96,24 @@ export default function Hero() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
 
                   <div className="relative z-10 flex flex-col gap-2">
-                    <span className="border border-white/20 bg-primary text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit">
-                      {itemCat?.name}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="border border-white/20 bg-primary text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit">
+                        {itemCat?.name}
+                      </span>
+                      {item.source && (
+                        <span className="inline-flex items-center gap-1 border border-white/20 bg-black/60 backdrop-blur-sm text-white font-semibold text-[10px] px-1.5 py-0.5">
+                          <Image
+                            src={`/api/favicon?domain=${encodeURIComponent(item.source.domain)}`}
+                            alt={`${item.source.name} logo`}
+                            width={12}
+                            height={12}
+                            unoptimized
+                            className="w-3 h-3 object-contain rounded-xs shrink-0"
+                          />
+                          <span>{item.source.name}</span>
+                        </span>
+                      )}
+                    </div>
                     <h3
                       className="text-[17px] xl:text-[18px] font-bold uppercase leading-snug tracking-tight text-white group-hover:text-primary transition-colors line-clamp-3"
                       style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
@@ -131,9 +161,23 @@ export default function Hero() {
                     >
                       {item.title}
                     </h3>
-                    <span className="text-[11px] text-[#737373] font-medium">
-                      {formatDate(item.publishedAt)}
-                    </span>
+                    <div className="flex items-center gap-1.5 text-[11px] text-[#737373] font-medium">
+                      {item.source && (
+                        <span className="inline-flex items-center gap-1 text-[#171717] font-semibold">
+                          <Image
+                            src={`/api/favicon?domain=${encodeURIComponent(item.source.domain)}`}
+                            alt=""
+                            width={12}
+                            height={12}
+                            unoptimized
+                            className="w-3 h-3 object-contain rounded-xs shrink-0"
+                          />
+                          <span>{item.source.name}</span>
+                          <span>·</span>
+                        </span>
+                      )}
+                      <span>{formatDate(item.publishedAt)}</span>
+                    </div>
                   </div>
                 </Link>
               ))}
@@ -162,10 +206,23 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide">
+              <div className="flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-wide flex-wrap">
                 <span className="border border-black px-2.5 py-1 bg-tint text-primary">
                   {featuredCategory?.name}
                 </span>
+                {featured.source && (
+                  <span className="inline-flex items-center gap-1.5 border border-black px-2 py-0.5 bg-white text-[#171717] font-semibold text-[11px] tracking-normal normal-case shadow-[1px_1px_0px_#0A0E11]">
+                    <Image
+                      src={`/api/favicon?domain=${encodeURIComponent(featured.source.domain)}`}
+                      alt={`${featured.source.name} logo`}
+                      width={14}
+                      height={14}
+                      unoptimized
+                      className="w-3.5 h-3.5 object-contain rounded-xs shrink-0"
+                    />
+                    <span>{featured.source.name}</span>
+                  </span>
+                )}
                 <span className="text-[#737373]">{formatDate(featured.publishedAt)}</span>
               </div>
 

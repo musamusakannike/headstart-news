@@ -30,10 +30,23 @@ export default function ArticleCard({
           />
         </div>
         <div className="flex flex-col justify-center gap-3 py-1 min-w-0">
-          <div className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide">
+          <div className="flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-wide flex-wrap">
             <span className="border border-black px-2 py-0.5 bg-tint text-primary">
               {category?.name}
             </span>
+            {article.source && (
+              <span className="inline-flex items-center gap-1.5 border border-black px-2 py-0.5 bg-white text-[#171717] font-semibold text-[11px] tracking-normal normal-case shadow-[1px_1px_0px_#0A0E11]">
+                <Image
+                  src={`/api/favicon?domain=${encodeURIComponent(article.source.domain)}`}
+                  alt={`${article.source.name} logo`}
+                  width={14}
+                  height={14}
+                  unoptimized
+                  className="w-3.5 h-3.5 object-contain rounded-xs shrink-0"
+                />
+                <span>{article.source.name}</span>
+              </span>
+            )}
             <span className="text-[#737373]">{formatDate(article.publishedAt)}</span>
           </div>
           <h3
@@ -45,9 +58,11 @@ export default function ArticleCard({
           <p className="text-[#525252] text-[15px] leading-relaxed line-clamp-2">
             {article.excerpt}
           </p>
-          <p className="text-[13px] font-medium text-[#737373]">
-            {article.author} · {article.readTime} min read
-          </p>
+          <div className="flex items-center gap-2 text-[13px] font-medium text-[#737373]">
+            <span>{article.author}</span>
+            <span>·</span>
+            <span>{article.readTime} min read</span>
+          </div>
         </div>
       </Link>
     );
@@ -72,11 +87,26 @@ export default function ArticleCard({
         />
       </div>
       <div className="flex flex-col gap-3 p-5 lg:p-6">
-        <div className="flex items-center justify-between gap-3 text-[12px] font-bold uppercase tracking-wide">
-          <span className="border border-black px-2 py-0.5 bg-tint text-primary">
-            {category?.name}
-          </span>
-          <span className="text-[#737373]">{formatDate(article.publishedAt)}</span>
+        <div className="flex items-center justify-between gap-2 text-[12px] font-bold uppercase tracking-wide flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="border border-black px-2 py-0.5 bg-tint text-primary">
+              {category?.name}
+            </span>
+            {article.source && (
+              <span className="inline-flex items-center gap-1.5 border border-black px-2 py-0.5 bg-white text-[#171717] font-semibold text-[11px] tracking-normal normal-case shadow-[1px_1px_0px_#0A0E11]">
+                <Image
+                  src={`/api/favicon?domain=${encodeURIComponent(article.source.domain)}`}
+                  alt={`${article.source.name} logo`}
+                  width={14}
+                  height={14}
+                  unoptimized
+                  className="w-3.5 h-3.5 object-contain rounded-xs shrink-0"
+                />
+                <span>{article.source.name}</span>
+              </span>
+            )}
+          </div>
+          <span className="text-[#737373] text-[11px]">{formatDate(article.publishedAt)}</span>
         </div>
         <h3
           className="font-bold text-[#171717] text-xl leading-snug group-hover:text-primary transition-colors"
@@ -87,6 +117,10 @@ export default function ArticleCard({
         <p className="text-[#525252] text-[14px] font-medium leading-relaxed">
           {article.excerpt}
         </p>
+        <div className="flex items-center justify-between pt-2 border-t border-black/10 text-[12px] font-medium text-[#737373]">
+          <span>{article.author}</span>
+          <span>{article.readTime} min read</span>
+        </div>
       </div>
     </Link>
   );

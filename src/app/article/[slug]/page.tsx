@@ -59,10 +59,30 @@ export default async function ArticlePage({
           </nav>
 
           <div className="max-w-3xl">
-            <div className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide mb-6">
+            <div className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-wide mb-6 flex-wrap">
               <span className="border border-black px-2.5 py-1 bg-tint text-primary">
                 {category?.name}
               </span>
+              {article.source && (
+                <a
+                  href={article.source.url || `https://${article.source.domain}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-black px-2.5 py-1 bg-white hover:bg-tint text-[#171717] transition-all shadow-[2px_2px_0px_#0A0E11] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0A0E11]"
+                  title={`Visit ${article.source.name}`}
+                >
+                  <Image
+                    src={`/api/favicon?domain=${encodeURIComponent(article.source.domain)}`}
+                    alt={`${article.source.name} logo`}
+                    width={16}
+                    height={16}
+                    unoptimized
+                    className="w-4 h-4 object-contain rounded-xs"
+                  />
+                  <span className="normal-case">Source: {article.source.name}</span>
+                  <span className="text-[10px] text-primary font-black">↗</span>
+                </a>
+              )}
               <span className="text-[#737373]">{formatDate(article.publishedAt)}</span>
             </div>
             <h1

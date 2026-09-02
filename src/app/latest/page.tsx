@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { getLatest } from "@/data/articles";
+import { getLatest, getSources } from "@/data/articles";
 import SectionHeader from "@/components/SectionHeader";
-import ArticleCard from "@/components/ArticleCard";
+import LatestNewsFeed from "@/components/LatestNewsFeed";
 
 export const metadata: Metadata = {
   title: "Latest News",
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function LatestPage() {
   const latest = getLatest();
+  const sources = getSources();
 
   return (
     <main className="flex-1 bg-white px-6 sm:px-8 lg:px-16 py-16 lg:py-24">
@@ -19,12 +20,9 @@ export default function LatestPage() {
           title="The full desk"
           description="Every story we have published, newest first."
         />
-        <div className="flex flex-col gap-8">
-          {latest.map((article) => (
-            <ArticleCard key={article.slug} article={article} variant="row" />
-          ))}
-        </div>
+        <LatestNewsFeed articles={latest} sources={sources} />
       </div>
     </main>
   );
 }
+
